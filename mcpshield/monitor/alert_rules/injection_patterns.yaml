@@ -1,0 +1,39 @@
+# MCPShield Alert Rules — Injection Pattern Detection
+# Load these with: mcpshield monitor --policy injection_patterns.yaml
+
+rules:
+  - id: IP-001
+    description: Block tool calls containing role-override injection phrases
+    action: block
+    param_patterns:
+      - "ignore\\s+(?:all\\s+)?(?:previous|prior|above)\\s+instructions?"
+      - "you\\s+are\\s+now\\s+in\\s+(?:maintenance|admin|debug)\\s+mode"
+      - "disregard\\s+(?:your\\s+)?(?:system\\s+)?prompt"
+      - "override\\s+(?:safety|security|policy|restriction)"
+
+  - id: IP-002
+    description: Block tool calls targeting cloud metadata endpoints (SSRF)
+    action: block
+    param_patterns:
+      - "169\\.254\\.169\\.254"
+      - "100\\.100\\.100\\.200"
+
+  - id: IP-003
+    description: Alert on internal network targets in tool parameters
+    action: alert
+    param_patterns:
+      - "(10\\.\\d+\\.\\d+\\.\\d+|172\\.(1[6-9]|2\\d|3[01])\\.\\d+\\.\\d+|192\\.168\\.\\d+\\.\\d+)"
+
+  - id: IP-004
+    description: Alert on exfiltration instructions in tool parameters
+    action: block
+    param_patterns:
+      - "(send|forward|email|post|transmit)\\s+.{0,50}\\s+(to|at)\\s+\\S+@\\S+"
+      - "(send|post)\\s+.{0,50}(https?://)"
+
+  - id: IP-005
+    description: Alert on tool chaining instructions
+    action: alert
+    param_patterns:
+      - "after\\s+(returning|completing).{0,30}(also|then)\\s+(call|invoke|run)"
+      - "before\\s+(responding|returning).{0,30}(first|always)\\s+(call|invoke)"

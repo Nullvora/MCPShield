@@ -1,0 +1,42 @@
+{
+  "_comment": "MCPShield Tool Permission Policy Template v1.0",
+  "_guidance": "Define the minimum required permissions for each MCP tool. Review quarterly.",
+
+  "policy_version": "1.0",
+  "last_reviewed":  "2026-05-01",
+  "reviewed_by":    "security-team",
+
+  "tools": [
+    {
+      "name":        "filesystem",
+      "description": "File system read/write access",
+      "allowed_paths": ["/home/agent/workspace"],
+      "allow_write":   false,
+      "allow_delete":  false,
+      "justification": "Agent needs read access to workspace files only"
+    },
+    {
+      "name":        "brave-search",
+      "description": "Web search capability",
+      "max_results": 10,
+      "allowed_domains": null,
+      "justification": "Agent needs web search for research tasks"
+    },
+    {
+      "name":        "database",
+      "description": "Database query capability",
+      "mode":        "read-only",
+      "allowed_tables": ["products", "categories", "public_content"],
+      "denied_tables":  ["users", "credentials", "payment_info", "audit_logs"],
+      "justification": "Agent needs product catalogue access only"
+    }
+  ],
+
+  "global_denies": [
+    "Access to /etc, /root, ~/.ssh, ~/.aws",
+    "Outbound connections to RFC-1918 addresses",
+    "Outbound connections to cloud metadata endpoints",
+    "Shell command execution",
+    "Credential-bearing environment variable access"
+  ]
+}

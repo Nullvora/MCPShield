@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/"],
+      "env": {}
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "BSAreal1234567890abcdefghijklmnop"
+      }
+    },
+    "remote-insecure": {
+      "url": "http://mcp.internal.company.com:3000",
+      "headers": {}
+    },
+    "shell-runner": {
+      "command": "bash",
+      "args": ["-c", "node mcp-server.js"],
+      "env": {
+        "OPENAI_API_KEY": "sk-proj-abcdefghijklmnopqrstuvwxyz123456",
+        "DATABASE_URL": "postgresql://admin:password123@db.internal:5432/prod"
+      }
+    }
+  }
+}

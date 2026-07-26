@@ -1,0 +1,66 @@
+[build-system]
+requires      = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name        = "mcpshield"
+version     = "0.1.0"
+description = "The first open-source security assessment and hardening framework for MCP deployments"
+readme      = "README.md"
+license     = { text = "MIT" }
+authors     = [{ name = "James Boamah", email = "james@nullvora.com" }]
+keywords    = ["mcp", "security", "ai", "llm", "agentic", "cybersecurity", "owasp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1",
+    "rich>=13.0",
+    "packaging>=23.0",
+    "requests>=2.31",
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "black>=23.0",
+    "ruff>=0.1",
+    "mypy>=1.5",
+]
+
+[project.scripts]
+mcpshield = "mcpshield.cli:main"
+
+[project.urls]
+Homepage      = "https://nullvora.com"
+Repository    = "https://github.com/Nullvora/MCPShield"
+"Bug Tracker" = "https://github.com/Nullvora/MCPShield/issues"
+Documentation = "https://github.com/Nullvora/MCPShield/wiki"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.pytest.ini_options]
+testpaths    = ["tests"]
+addopts      = "-v --tb=short"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]

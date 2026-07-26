@@ -1,0 +1,47 @@
+{
+  "_comment": "MCPShield Secure MCP Server Configuration Template v1.0",
+  "_guidance": "Replace ${VARIABLE} placeholders with values injected at runtime via environment variables or a secrets manager. Never commit real credentials to version control.",
+
+  "mcpServers": {
+
+    "filesystem-restricted": {
+      "_comment": "Filesystem server scoped to a specific workspace directory only",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem@1.3.2",
+        "/home/agent/workspace"
+      ],
+      "env": {}
+    },
+
+    "brave-search": {
+      "_comment": "API key injected at runtime — never hardcoded",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search@1.2.1"],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      }
+    },
+
+    "remote-mcp-server": {
+      "_comment": "Remote HTTP server with TLS and Bearer token auth",
+      "url": "https://mcp.internal.company.com:3443",
+      "headers": {
+        "Authorization": "Bearer ${MCP_AUTH_TOKEN}",
+        "X-Agent-ID":    "${AGENT_ID}",
+        "X-Request-ID":  "${REQUEST_ID}"
+      }
+    },
+
+    "database-readonly": {
+      "_comment": "Database access using a read-only service account",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres@1.1.0"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${DB_READONLY_CONNECTION_STRING}"
+      }
+    }
+
+  }
+}
