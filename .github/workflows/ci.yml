@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with: { python-version: "3.12" }
       - run: python -m pip install -e ".[dev]"
       - run: ruff check mcpshield tests
@@ -28,7 +28,7 @@ jobs:
           - { os: windows-latest, python: "3.10" }
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with: { python-version: "${{ matrix.python }}" }
       - run: python -m pip install -e ".[dev]"
       - run: pytest --cov=mcpshield --cov-report=term-missing
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with: { python-version: "3.12" }
       - run: pip install build twine && python -m build && twine check dist/*
       - uses: actions/upload-artifact@v4
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with: { python-version: "3.12" }
       - run: python -m pip install -e ".[dev]" "mcp>=1.23,<2"
       - run: pytest tests/test_live.py tests/test_observability.py
