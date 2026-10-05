@@ -1,47 +1,27 @@
 {
-  "_comment": "MCPShield Secure MCP Server Configuration Template v1.0",
-  "_guidance": "Replace ${VARIABLE} placeholders with values injected at runtime via environment variables or a secrets manager. Never commit real credentials to version control.",
-
+  "_comment": "MCPShield secure MCP client configuration template (Claude Desktop / Cursor / Claude Code .mcp.json format).",
+  "_guidance": [
+    "Pin every package to an exact, reviewed version (never @latest).",
+    "Reference secrets from the environment (${VAR}); never write literal tokens into this file.",
+    "Scope filesystem access to the project directory only.",
+    "Run local servers behind 'mcpshield proxy' so tool definitions are vetted and calls are policy-checked and audited.",
+    "Prefer Streamable HTTP over HTTPS with OAuth 2.1 for remote servers; never plain http:// off-host.",
+    "Validate with: mcpshield scan <this file> --live"
+  ],
   "mcpServers": {
-
-    "filesystem-restricted": {
-      "_comment": "Filesystem server scoped to a specific workspace directory only",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem@1.3.2",
-        "/home/agent/workspace"
-      ],
-      "env": {}
+    "filesystem": {
+      "command": "mcpshield",
+      "args": ["proxy", "--name", "filesystem", "--policy", "${HOME}/.mcpshield/policy.yaml", "--",
+               "npx", "-y", "@modelcontextprotocol/server-filesystem@2025.8.21", "/home/agent/workspace/project"]
     },
-
-    "brave-search": {
-      "_comment": "API key injected at runtime — never hardcoded",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-brave-search@1.2.1"],
-      "env": {
-        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
-      }
+    "time": {
+      "command": "uvx",
+      "args": ["mcp-server-time==2025.9.25"]
     },
-
-    "remote-mcp-server": {
-      "_comment": "Remote HTTP server with TLS and Bearer token auth",
-      "url": "https://mcp.internal.company.com:3443",
-      "headers": {
-        "Authorization": "Bearer ${MCP_AUTH_TOKEN}",
-        "X-Agent-ID":    "${AGENT_ID}",
-        "X-Request-ID":  "${REQUEST_ID}"
-      }
-    },
-
-    "database-readonly": {
-      "_comment": "Database access using a read-only service account",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres@1.1.0"],
-      "env": {
-        "POSTGRES_CONNECTION_STRING": "${DB_READONLY_CONNECTION_STRING}"
-      }
+    "remote-internal": {
+      "type": "http",
+      "url": "https://mcp.internal.example.com/mcp",
+      "headers": { "Authorization": "Bearer ${MCP_INTERNAL_TOKEN}" }
     }
-
   }
 }

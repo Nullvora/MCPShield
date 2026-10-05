@@ -13,7 +13,7 @@
 - [ ] **H1.3** STDIO transport is restricted to trusted, controlled local process environments only
 - [ ] **H1.4** No MCP server is exposed to the public internet without authentication and TLS
 - [ ] **H1.5** SSRF defences are active — block requests to RFC-1918 ranges and cloud metadata endpoints
-- [ ] **H1.6** All MCP SDK packages are patched to versions >= 1.3.1 (CVE-2025-49596 / CVE-2026-22252)
+- [ ] **H1.6** MCP SDKs and tooling are patched: TypeScript `@modelcontextprotocol/sdk` ≥ 1.26.0, Python `mcp` ≥ 1.23.0, MCP Inspector ≥ 0.14.1, `mcp-remote` ≥ 0.1.16 (`mcpshield scan` flags known-vulnerable versions — MCPS-SUP-002)
 - [ ] **H1.7** STDIO servers are never wrapped in bare shell commands (bash -c, sh -c)
 - [ ] **H1.8** MCP server processes run under dedicated least-privilege OS accounts (not root)
 - [ ] **H1.9** Network egress from MCP servers is restricted to allowlisted destinations

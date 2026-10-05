@@ -4,15 +4,22 @@
 
 ## Immediate Actions
 
-### 1. Patch SDK (CVE-2025-49596 / CVE-2026-22252)
-```bash
-# Python
-pip install mcp --upgrade
+### 1. Patch SDKs and launchers
+Minimum versions (DNS-rebinding protection on by default, cross-client leak fixed, launcher RCEs fixed):
 
-# Node.js
-npm install @anthropic-ai/mcp@latest
-npm install @modelcontextprotocol/sdk@latest
+```bash
+# Python SDK (CVE-2025-53365, CVE-2025-53366, CVE-2025-66416)
+pip install "mcp>=1.23.0"
+
+# TypeScript SDK (CVE-2025-66414, CVE-2026-25536)
+npm install "@modelcontextprotocol/sdk@>=1.26.0"
+
+# Launchers / tooling (CVE-2025-6514, CVE-2025-49596)
+npx -y mcp-remote@0.1.16            # or later, pinned
+npx -y @modelcontextprotocol/inspector@0.14.1   # or later, pinned
 ```
+
+Verify with `mcpshield scan --auto` (rule MCPS-SUP-002).
 
 ### 2. Enable TLS on HTTP Servers
 ```json

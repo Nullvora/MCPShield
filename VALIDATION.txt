@@ -1,0 +1,73 @@
+MCPShield 1.1.1rc1 validation — 2026-10-05
+Linux / Python 3.12 / MCP SDK 2.3.0
+
+
+COMMAND: pytest --cov=mcpshield --cov-report=term-missing -q
+........................................................................ [ 40%]
+........................................................................ [ 81%]
+................................                                         [100%]
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.14-final-0 _______________
+
+Name                                Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------
+mcpshield/__init__.py                   2      0   100%
+mcpshield/auditlog.py                  90      8    91%   48, 51-52, 93, 97-100
+mcpshield/checks/__init__.py            0      0   100%
+mcpshield/checks/capabilities.py       40      2    95%   77, 79
+mcpshield/checks/config_checks.py     276     15    95%   37, 41, 47, 119, 149, 151, 155, 157, 159, 315, 326, 345-346, 349, 355
+mcpshield/checks/packages.py          206     11    95%   74, 101, 115, 133-134, 136-137, 195-196, 229, 254
+mcpshield/checks/registry.py           26      1    96%   327
+mcpshield/checks/text.py               96      6    94%   67, 69, 124-125, 190, 198
+mcpshield/checks/tool_checks.py       210     12    94%   57, 63, 78, 169, 173, 183, 225, 233, 270, 283-284, 289
+mcpshield/cli.py                      434    113    74%   32-34, 48-51, 60-61, 63, 74, 156, 162-164, 203, 208-213, 232-234, 240-248, 265-300, 313-316, 319, 403-438, 449, 483, 490, 511-513, 536, 572, 618
+mcpshield/config/__init__.py            3      0   100%
+mcpshield/config/loader.py            201     19    91%   51-53, 107, 109, 117, 131, 158-159, 183, 185, 206-210, 225, 253-254, 285
+mcpshield/config/locations.py          47      5    89%   31-32, 40, 100-101
+mcpshield/data/__init__.py              0      0   100%
+mcpshield/live/__init__.py              0      0   100%
+mcpshield/live/client.py              415    163    61%   44-47, 56-66, 88, 116, 119-121, 130-131, 138, 144-145, 149, 158-163, 168-188, 230-235, 247-248, 250-253, 255, 258-266, 269-271, 274-276, 281, 284, 288-291, 301-311, 314-346, 349-354, 357-358, 389-395, 397, 426-427, 433, 442, 453, 461, 463, 474-481, 488-490, 510-511, 531-532
+mcpshield/live/inspect.py              67     15    78%   27, 40-44, 48, 52-55, 71, 79-80, 83
+mcpshield/live/probes.py              245    142    42%   44, 56-74, 78, 82-89, 99-110, 117, 123-124, 128-129, 139-140, 142-143, 148-149, 158-161, 163-165, 170, 185-193, 199-200, 209-213, 219-221, 227, 231, 246-251, 254-255, 259-316
+mcpshield/models.py                   159     16    90%   31, 39, 43-45, 48-50, 53-55, 143, 198, 206-208
+mcpshield/pinning.py                   60      7    88%   38, 58-62, 84
+mcpshield/proxy/__init__.py             0      0   100%
+mcpshield/proxy/guard.py              411     47    89%   69-70, 72, 82, 134-135, 139, 141, 156, 168, 216, 225, 262-264, 300-301, 307, 313, 323, 329, 381, 391, 394-397, 452, 463-464, 475-482, 489-490, 493-499
+mcpshield/proxy/policy.py             184      5    97%   115, 135, 150, 165, 187
+mcpshield/reporting/__init__.py         0      0   100%
+mcpshield/reporting/console.py         53     40    25%   32-77
+mcpshield/reporting/html.py            69     15    78%   96, 120-134, 137
+mcpshield/reporting/markdown.py        27      1    96%   42
+mcpshield/reporting/sarif.py           55      4    93%   25-26, 64-65
+mcpshield/scanner.py                  102     12    88%   42-43, 60-61, 66, 75, 115, 121-126
+mcpshield/taxonomy.py                  11      2    82%   39, 48
+mcpshield/telemetry.py                132     10    92%   97, 99, 139-142, 147-148, 152, 170
+mcpshield/tracing.py                  133      7    95%   82, 87-88, 125, 130-131, 184
+-----------------------------------------------------------------
+TOTAL                                3754    678    82%
+176 passed in 9.82s
+
+
+COMMAND: ruff check mcpshield tests
+All checks passed!
+
+
+COMMAND: mypy mcpshield
+mcpshield/cli.py:311: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+mcpshield/cli.py:429: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Success: no issues found in 33 source files
+
+
+COMMAND: twine check dist/*
+Checking dist/mcpshield-1.1.1rc1-py3-none-any.whl: PASSED
+Checking dist/mcpshield-1.1.1rc1.tar.gz: PASSED
+
+
+Wheel clean-environment install: PASS; version 1.1.1rc1; secure static scan exit 0.
+Build: source distribution and wheel succeeded.
+Template self-scan: exit 0.
+Vulnerable demo: HTML generated, fail-on none exit 0.
+YAML parse and git diff whitespace: PASS.
+Credential-format matches: synthetic tests only (limited scan, not exhaustive).
+Docker and hosted OS/Python matrix: NOT RUN locally.
+No public publishing performed.

@@ -1,0 +1,175 @@
+{
+  "_comment": "Curated, source-verified advisories for MCP packages. Each entry is matched against packages launched by stdio servers (npx/uvx/pipx/pip/bunx). 'affected' uses PEP 440-style specifiers. Update via PR; cite the advisory URL.",
+  "updated": "2026-09-24",
+  "advisories": [
+    {
+      "id": "CVE-2025-6514",
+      "ecosystem": "npm",
+      "package": "mcp-remote",
+      "affected": ">=0.0.5,<0.1.16",
+      "fixed": "0.1.16",
+      "severity": "critical",
+      "summary": "OS command injection when mcp-remote connects to an untrusted MCP server (crafted authorization_endpoint).",
+      "url": "https://github.com/advisories/GHSA-6xpm-ggf7-wc3p"
+    },
+    {
+      "id": "CVE-2025-49596",
+      "ecosystem": "npm",
+      "package": "@modelcontextprotocol/inspector",
+      "affected": "<0.14.1",
+      "fixed": "0.14.1",
+      "severity": "critical",
+      "summary": "Unauthenticated remote code execution in MCP Inspector (missing auth between browser UI and proxy).",
+      "url": "https://www.oligo.security/blog/critical-rce-vulnerability-in-anthropic-mcp-inspector-cve-2025-49596"
+    },
+    {
+      "id": "CVE-2026-23744",
+      "ecosystem": "npm",
+      "package": "@mcpjam/inspector",
+      "affected": "<=1.4.2",
+      "fixed": "",
+      "severity": "critical",
+      "summary": "Remote code execution in MCPJam Inspector.",
+      "url": "https://vulnerablemcp.info/"
+    },
+    {
+      "id": "CVE-2025-66414",
+      "ecosystem": "npm",
+      "package": "@modelcontextprotocol/sdk",
+      "affected": "<1.24.0",
+      "fixed": "1.24.0",
+      "severity": "high",
+      "summary": "DNS rebinding protection not enabled by default for localhost Streamable HTTP servers (TypeScript SDK).",
+      "url": "https://vulnerablemcp.info/"
+    },
+    {
+      "id": "CVE-2026-25536",
+      "ecosystem": "npm",
+      "package": "@modelcontextprotocol/sdk",
+      "affected": ">=1.10.0,<1.26.0",
+      "fixed": "1.26.0",
+      "severity": "high",
+      "summary": "Cross-client data leak when a server/transport instance is reused across clients.",
+      "url": "https://github.com/advisories/GHSA-345p-7cg4-v4c7"
+    },
+    {
+      "id": "CVE-2025-53366",
+      "ecosystem": "pypi",
+      "package": "mcp",
+      "affected": "<1.9.4",
+      "fixed": "1.9.4",
+      "severity": "high",
+      "summary": "Validation flaw lets malformed requests raise unhandled exceptions (denial of service).",
+      "url": "https://github.com/advisories/GHSA-3qhf-m339-9g5v"
+    },
+    {
+      "id": "CVE-2025-53365",
+      "ecosystem": "pypi",
+      "package": "mcp",
+      "affected": "<1.10.0",
+      "fixed": "1.10.0",
+      "severity": "high",
+      "summary": "Uncaught ClosedResourceError in Streamable HTTP transport crashes the server (denial of service).",
+      "url": "https://osv.dev/vulnerability/CVE-2025-53365"
+    },
+    {
+      "id": "CVE-2025-66416",
+      "ecosystem": "pypi",
+      "package": "mcp",
+      "affected": "<1.23.0",
+      "fixed": "1.23.0",
+      "severity": "high",
+      "summary": "DNS rebinding protection not enabled by default for localhost HTTP servers (Python SDK).",
+      "url": "https://vulnerablemcp.info/"
+    },
+    {
+      "id": "CVE-2025-53110",
+      "ecosystem": "npm",
+      "package": "@modelcontextprotocol/server-filesystem",
+      "affected": "<2025.7.1",
+      "fixed": "2025.7.1",
+      "severity": "high",
+      "summary": "Directory prefix-match bypass lets the server access paths outside allowed directories (EscapeRoute).",
+      "url": "https://osv.dev/vulnerability/CVE-2025-53110"
+    },
+    {
+      "id": "CVE-2025-53109",
+      "ecosystem": "npm",
+      "package": "@modelcontextprotocol/server-filesystem",
+      "affected": "<2025.7.1",
+      "fixed": "2025.7.1",
+      "severity": "high",
+      "summary": "Symlink handling bypass allows sandbox escape from allowed directories (EscapeRoute).",
+      "url": "https://cymulate.com/blog/cve-2025-53109-53110-escaperoute-anthropic/"
+    },
+    {
+      "id": "CVE-2025-68143",
+      "ecosystem": "pypi",
+      "package": "mcp-server-git",
+      "affected": "<2025.9.25",
+      "fixed": "2025.9.25",
+      "severity": "high",
+      "summary": "git_init accepted arbitrary filesystem paths (path traversal).",
+      "url": "https://github.com/advisories/GHSA-5cgr-j3jf-jw3v"
+    },
+    {
+      "id": "CVE-2025-68144",
+      "ecosystem": "pypi",
+      "package": "mcp-server-git",
+      "affected": "<2025.12.18",
+      "fixed": "2025.12.18",
+      "severity": "high",
+      "summary": "Argument injection in git_diff / git_checkout (user-controlled args passed to git CLI).",
+      "url": "https://thehackernews.com/2026/01/three-flaws-in-anthropic-mcp-git-server.html"
+    },
+    {
+      "id": "CVE-2025-68145",
+      "ecosystem": "pypi",
+      "package": "mcp-server-git",
+      "affected": "<2025.12.18",
+      "fixed": "2025.12.18",
+      "severity": "high",
+      "summary": "Missing path validation for --repository restriction (path traversal).",
+      "url": "https://thehackernews.com/2026/01/three-flaws-in-anthropic-mcp-git-server.html"
+    },
+    {
+      "id": "CVE-2025-53967",
+      "ecosystem": "npm",
+      "package": "figma-developer-mcp",
+      "affected": "<0.6.3",
+      "fixed": "0.6.3",
+      "severity": "high",
+      "summary": "Command injection in the get_figma_data tool (Framelink Figma MCP).",
+      "url": "https://github.com/advisories/GHSA-gxw4-4fc5-9gr5"
+    },
+    {
+      "id": "CVE-2025-53355",
+      "ecosystem": "npm",
+      "package": "mcp-server-kubernetes",
+      "affected": "<2.5.0",
+      "fixed": "2.5.0",
+      "severity": "high",
+      "summary": "Command injection in several kubectl tools.",
+      "url": "https://github.com/advisories/GHSA-gjv4-ghm7-q58q"
+    },
+    {
+      "id": "CVE-2025-53372",
+      "ecosystem": "npm",
+      "package": "node-code-sandbox-mcp",
+      "affected": "<=1.2.0",
+      "fixed": "",
+      "severity": "high",
+      "summary": "Docker sandbox escape via command injection.",
+      "url": "https://vulnerablemcp.info/"
+    }
+  ],
+  "malicious": [
+    {
+      "ecosystem": "npm",
+      "package": "postmark-mcp",
+      "versions": "*",
+      "summary": "Impersonation of Postmark; version 1.0.16 BCC'd every sent email to an attacker address. Not published by Postmark.",
+      "url": "https://postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package"
+    }
+  ]
+}

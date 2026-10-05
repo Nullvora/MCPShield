@@ -1,0 +1,74 @@
+name: "MCPShield — MCP security scan"
+description: "Scan Model Context Protocol configs (.mcp.json, .cursor, .vscode, .claude) for secrets, RCE-prone launch commands, vulnerable/malicious packages and unsafe agent settings. Uploads SARIF to code scanning."
+author: "Nullvora"
+branding:
+  icon: "shield"
+  color: "blue"
+inputs:
+  path:
+    description: "Project directory to scan (all known MCP config locations inside it are discovered)."
+    default: "."
+  configs:
+    description: "Extra config files to scan (space separated)."
+    default: ""
+  fail-on:
+    description: "Fail the job when a finding at/above this severity exists: critical|high|medium|low|info|none."
+    default: "high"
+  allowlist:
+    description: "Optional allowlist YAML (shadow-MCP detection)."
+    default: ""
+  upload-sarif:
+    description: "Upload SARIF to GitHub code scanning (requires security-events: write)."
+    default: "true"
+  version:
+    description: "MCPShield version to install (pip specifier)."
+    default: ""
+outputs:
+  sarif:
+    description: "Path of the SARIF report."
+    value: ${{ steps.scan.outputs.sarif }}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Install MCPShield
+      shell: bash
+      env:
+        MCPSHIELD_VERSION: ${{ inputs.version }}
+        ACTION_PATH: ${{ github.action_path }}
+      run: |
+        if [ -n "$MCPSHIELD_VERSION" ]; then pip install "mcpshield${MCPSHIELD_VERSION}"; else pip install "$ACTION_PATH"; fi
+    - name: Scan
+      id: scan
+      shell: bash
+      env:
+        SCAN_PATH: ${{ inputs.path }}
+        SCAN_CONFIGS: ${{ inputs.configs }}
+        FAIL_ON: ${{ inputs.fail-on }}
+        ALLOWLIST: ${{ inputs.allowlist }}
+      run: |
+        set +e
+        args=(scan --project "$SCAN_PATH" --sarif mcpshield.sarif --markdown mcpshield.md --fail-on "$FAIL_ON")
+        [ -n "$ALLOWLIST" ] && args+=(--allowlist "$ALLOWLIST")
+        # shellcheck disable=SC2206
+        read -r -a extra <<< "$SCAN_CONFIGS"
+        mcpshield "${args[@]}" "${extra[@]}"
+        code=$?
+        echo "sarif=mcpshield.sarif" >> "$GITHUB_OUTPUT"
+        cat mcpshield.md >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
+        echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+        exit 0
+    - name: Upload SARIF
+      if: ${{ inputs.upload-sarif == 'true' && always() && steps.scan.outputs.sarif != '' }}
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: mcpshield.sarif
+        category: mcpshield
+    - name: Enforce threshold
+      if: ${{ always() }}
+      shell: bash
+      env:
+        CODE: ${{ steps.scan.outputs.exit_code }}
+      run: exit "${CODE:-2}"

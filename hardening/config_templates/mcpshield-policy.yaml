@@ -1,0 +1,25 @@
+# MCPShield runtime policy — used by `mcpshield proxy --policy mcpshield-policy.yaml -- <server command>`
+mode: enforce              # enforce = block; monitor = log only
+block_severity: high       # hide tools whose *definitions* have findings at/above this severity
+
+tools:
+  deny: []                 # glob patterns, e.g. ["run_command", "delete_*"]
+  allow: []                # if set, ONLY these tools are exposed
+  require_pinned: false    # with --lock: hide tools not present/identical in the lock file
+
+arguments:
+  deny_paths: []           # added to built-in denials (~/.ssh/**, ~/.aws/**, **/.env, MCP configs, ...)
+  deny_hosts: []           # added to built-in cloud-metadata hosts
+  deny_private_networks: true
+  deny_patterns: []        # regexes, added to built-ins (rm -rf /, curl|sh, /dev/tcp, ...)
+  max_bytes: 200000
+
+results:
+  redact_secrets: true     # mask API keys/tokens/private keys in tool output before the model sees them
+  block_injection: false   # replace tool output that contains prompt-injection language
+
+rate_limits:
+  default_per_minute: 120
+  per_tool: {}             # e.g. {send_email: 5}
+
+sampling: deny             # deny server-initiated LLM sampling requests

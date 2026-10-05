@@ -1,0 +1,19 @@
+# .github/workflows/mcp-security.yml — scan MCP configs on every PR and upload results to GitHub code scanning.
+name: MCP security
+on:
+  pull_request:
+    paths: [".mcp.json", ".cursor/mcp.json", ".vscode/mcp.json", ".claude/**", "**/mcp*.json"]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  security-events: write
+jobs:
+  mcpshield:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Nullvora/MCPShield@v1
+        with:
+          path: .
+          fail-on: high

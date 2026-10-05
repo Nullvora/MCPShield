@@ -1,0 +1,43 @@
+{
+  "authentication": {
+    "enabled": true,
+    "method": "mtls",
+    "fallback_methods": ["api_key"],
+    "api_key": {
+      "header": "X-MCP-API-Key",
+      "rotation_days": 90,
+      "min_length": 32,
+      "storage": "HashiCorp Vault"
+    },
+    "mtls": {
+      "client_cert_required": true,
+      "verify_depth": 2,
+      "crl_check": true
+    },
+    "session": {
+      "max_duration_minutes": 60,
+      "idle_timeout_minutes": 15,
+      "reauth_for_irreversible": true
+    }
+  },
+  "authorization": {
+    "default_deny": true,
+    "role_based_access": true,
+    "roles": {
+      "read_only": {
+        "allowed_tools": ["read_file", "query_database", "get_status"],
+        "max_calls_per_minute": 100
+      },
+      "standard": {
+        "allowed_tools": ["read_file", "write_file", "query_database", "send_email"],
+        "max_calls_per_minute": 200,
+        "irreversible_requires_approval": true
+      },
+      "admin": {
+        "allowed_tools": ["*"],
+        "max_calls_per_minute": 500,
+        "requires_2fa": true
+      }
+    }
+  }
+}

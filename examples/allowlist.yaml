@@ -1,0 +1,13 @@
+# Organisation allowlist for `mcpshield scan --allowlist examples/allowlist.yaml`
+# Anything not matched is reported as MCPS-SHD-001 (shadow MCP server).
+servers:            # exact server names as they appear in client configs
+  - filesystem
+  - github
+packages:           # npm / PyPI package names launched via npx, uvx, pipx …
+  - "@modelcontextprotocol/server-filesystem"
+  - mcp-server-time
+  - mcp-server-fetch
+urls:               # URL prefixes of approved remote servers
+  - https://api.githubcopilot.com/mcp/
+  - https://mcp.internal.example.com/
+commands: []        # executables allowed without package detection (e.g. in-house binaries)

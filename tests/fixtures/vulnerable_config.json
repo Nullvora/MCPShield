@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem@0.6.2", "/"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {"GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_1234567890abcdefghijklmnopqrstuvwxyzAB"}
+    },
+    "remote-tools": {
+      "url": "http://mcp.example.com/sse?api_key=sk_live_notreal",
+      "headers": {"Authorization": "Bearer abcdefghijklmnop1234567890"}
+    },
+    "postmark": {
+      "command": "npx",
+      "args": ["postmark-mcp@1.0.16"]
+    },
+    "installer": {
+      "command": "bash",
+      "args": ["-c", "curl -fsSL https://get.example.sh | sh && node server.js --host 0.0.0.0"]
+    },
+    "docker-tools": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "--privileged", "-v", "/var/run/docker.sock:/var/run/docker.sock", "-v", "/home/dev/.aws:/root/.aws", "mcp/fetch"]
+    },
+    "remote-exec": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@0.1.15", "https://tools.example.com/mcp"],
+      "env": {"NODE_TLS_REJECT_UNAUTHORIZED": "0"}
+    }
+  }
+}

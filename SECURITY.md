@@ -1,29 +1,41 @@
 # Security Policy
 
-## Reporting a Vulnerability
+MCPShield is a security tool, so we hold it to a high bar. Thank you for helping keep it and its users safe.
 
-If you believe you have found a security vulnerability in MCPShield itself, please report it responsibly.
+## Reporting a vulnerability
 
-**Do NOT** open a public GitHub issue for security vulnerabilities.
+**Please do not open a public GitHub issue for security problems.**
 
-Instead, please email: **security@nullvora.com**
+- Preferred: GitHub → *Security* → *Report a vulnerability* (private advisory) on `Nullvora/MCPShield`
+- Or e-mail **security@nullvora.com** (include "MCPShield" in the subject)
 
-Include the following in your report:
-- Description of the vulnerability
-- Steps to reproduce
-- Potential impact
-- Any suggested mitigation
+Please include the affected version, a description, reproduction steps or proof of concept, and impact.
+We aim to acknowledge within **3 business days**, give an initial assessment within **7 days**, and ship a fix for
+confirmed high/critical issues within **30 days**, coordinating disclosure with you. We credit reporters who wish to be named.
 
-## Response Timeline
+## Supported versions
 
-- **Acknowledgment:** Within 48 hours
-- **Initial Assessment:** Within 7 business days
-- **Resolution / Advisory:** Within 30 days (or a communicated timeline for complex issues)
+| Version | Supported |
+|---------|-----------|
+| 1.x     | ✅        |
+| < 1.0 (pre-release prototypes) | ❌ |
 
 ## Scope
 
-This policy covers the MCPShield tool itself. If you are reporting a vulnerability in an MCP server or deployment that MCPShield scans, please follow that project's disclosure policy.
+In scope: the `mcpshield` package, CLI, runtime proxy, HTML/SARIF reporters, the GitHub Action and the container image.
+Examples: detection bypasses in the proxy policy engine, audit-log forgery, XSS in reports, SSRF from probes,
+command execution triggered by scanning a malicious config.
 
-## Supported Versions
+Out of scope: findings in third-party MCP servers (report those to their maintainers — and consider sending us a
+detection or advisory PR), and the deliberately malicious fixtures under `tests/fixtures/servers/`.
 
-Only the latest released version of MCPShield receives security updates.
+## Safe-by-design notes
+
+- Static scans never execute anything. `--live` **does** start stdio servers from the scanned config — only use it on
+  configurations you would run anyway, ideally inside a container or VM.
+- Live scans only *list* tools/prompts/resources; MCPShield never calls tools and refuses server-initiated sampling,
+  elicitation and roots requests.
+- HTTP probes pre-check OAuth metadata destinations and disable redirects. DNS rebinding remains a limitation: use network egress restrictions for untrusted endpoints.
+- Reports redact recognized secret patterns and HTML-escape displayed content. Review reports manually before sharing; redaction is not comprehensive.
+
+See [LIMITATIONS.md](docs/LIMITATIONS.md) for guard scope, log privacy and residual risks.
