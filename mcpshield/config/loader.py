@@ -278,9 +278,32 @@ def load_config_dict(data: dict[str, Any], source: str = "<memory>", client: str
 
 def parse_command_string(command: str) -> tuple[str, list[str]]:
     """Split a command line into executable + args (used for --stdio targets)."""
+    import sys
     import shlex
 
-    parts = shlex.split(command, posix=True)
+    if not command.strip():
+        raise ValueError("empty command")
+    if sys.platform == "win32":
+        import ctypes
+        from ctypes import wintypes
+
+        shell = ctypes.WinDLL("shell32", use_last_error=True)
+        kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+        split = shell.CommandLineToArgvW
+        split.argtypes = [wintypes.LPCWSTR, ctypes.POINTER(ctypes.c_int)]
+        split.restype = ctypes.POINTER(wintypes.LPWSTR)
+        kernel.LocalFree.argtypes = [wintypes.HLOCAL]
+        kernel.LocalFree.restype = wintypes.HLOCAL
+        count = ctypes.c_int()
+        argv = split(command.lstrip(), ctypes.byref(count))
+        if not argv:
+            raise ctypes.WinError(ctypes.get_last_error())
+        try:
+            parts = [argv[i] for i in range(count.value)]
+        finally:
+            kernel.LocalFree(ctypes.cast(argv, wintypes.HLOCAL))
+    else:
+        parts = shlex.split(command, posix=True)
     if not parts:
         raise ValueError("empty command")
     return parts[0], parts[1:]

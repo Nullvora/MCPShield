@@ -38,3 +38,32 @@ def test_inspection_exception_does_not_forward_server_bytes(tmp_path):
     guard.handle_server = broken
     assert guard.run() == 0
     assert out.getvalue() == b''
+
+
+def test_failed_pin_preserves_existing_lock(tmp_path):
+    lock = tmp_path / 'mcpshield.lock'
+    original = '{"lockVersion":1,"servers":{}}\n'
+    lock.write_text(original, encoding='utf-8')
+    result = CliRunner().invoke(cli, ['pin', '--stdio', 'definitely-missing-mcpshield-binary', '--lock', str(lock)])
+    assert result.exit_code == 2
+    assert lock.read_text(encoding='utf-8') == original
+
+
+def test_failed_verify_does_not_claim_match(tmp_path):
+    lock = tmp_path / 'mcpshield.lock'
+    lock.write_text('{"lockVersion":1,"servers":{}}', encoding='utf-8')
+    result = CliRunner().invoke(cli, ['verify', '--stdio', 'definitely-missing-mcpshield-binary', '--lock', str(lock)])
+    assert result.exit_code == 2
+    assert 'all tool definitions match' not in result.output
+
+
+def test_windows_command_paths_round_trip():
+    import os
+    import subprocess
+    import pytest
+    from mcpshield.config.loader import parse_command_string
+    if os.name != 'nt':
+        pytest.skip('Windows native command parser')
+    args = [r'C:\Program Files\Python\python.exe', r'C:\MCP servers\server.py', 'hello world', '']
+    command, actual = parse_command_string(subprocess.list2cmdline(args))
+    assert [command, *actual] == args

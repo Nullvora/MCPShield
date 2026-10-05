@@ -106,7 +106,7 @@ def test_policy_tools_and_rate_limit():
 def test_policy_yaml(tmp_path):
     from mcpshield.proxy.policy import EXAMPLE_POLICY
     p = tmp_path / "p.yaml"
-    p.write_text(EXAMPLE_POLICY)
+    p.write_text(EXAMPLE_POLICY, encoding="utf-8")
     pol = Policy.load(str(p))
     assert pol.enforce and pol.block_severity == Severity.HIGH and not pol.allow_sampling
 

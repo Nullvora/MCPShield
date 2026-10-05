@@ -311,9 +311,12 @@ def _live_inventories(configs, auto, project, urls, stdio_cmds, headers, timeout
     specs: list[ServerSpec] = []
     for p in _collect_configs(configs, auto, project):
         try:
-            specs += [s for s in load_config_file(p).servers if not s.disabled]
+            loaded = load_config_file(p)
+            if loaded.errors:
+                raise ValueError("; ".join(loaded.errors))
+            specs += [s for s in loaded.servers if not s.disabled]
         except Exception as exc:  # noqa: BLE001
-            err.print(f"[yellow]{p}: {exc}[/yellow]")
+            raise click.UsageError(f"{p}: {exc}") from exc
     specs += [_spec_from_url(u, hdrs) for u in urls] + [_spec_from_command(c) for c in stdio_cmds]
     if not specs:
         raise click.UsageError("no servers to connect to")
@@ -323,6 +326,8 @@ def _live_inventories(configs, auto, project, urls, stdio_cmds, headers, timeout
         status = f"{len(inv.tools)} tools" if not inv.errors else "; ".join(inv.errors)
         console.print(f"· {s.name}: {status}", highlight=False)
         invs.append(inv)
+    if any(inv.errors for inv in invs):
+        raise click.UsageError("server inspection failed; refusing to pin or verify incomplete inventories")
     return invs
 
 
@@ -367,6 +372,8 @@ def verify(configs, auto, project, urls, stdio_cmds, headers, timeout, protocol,
 
     lock = load_lock(lock_file)
     invs = _live_inventories(configs, auto, project, urls, stdio_cmds, headers, timeout, protocol)
+    if any(inv.name not in lock.get("servers", {}) for inv in invs):
+        raise click.UsageError("server is missing from the lock file; pin its reviewed definitions first")
     findings = verify_against_lock(invs, lock)
     if not findings:
         console.print("[green]✓ all tool definitions match the lock file[/green]")

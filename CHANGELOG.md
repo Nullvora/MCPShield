@@ -85,3 +85,9 @@ the v1.0.0 "complete/production/launch" builds) into one tested package.
 - Static scans never execute code; live scans never call tools and refuse server-initiated requests.
 - Probes do not follow OAuth metadata into private/link-local networks.
 - Secret values are redacted in every output format.
+
+### Cross-platform release follow-up (5 October 2026)
+- Parse Windows stdio command lines with the native argument parser so backslashes and quoted paths survive.
+- Make pin/verify fail with exit 2 on incomplete inspections or config errors; failed pinning preserves the existing lock.
+- Reject verification of servers absent from the lock.
+- Write the policy fixture as UTF-8 and add failure-path and Windows path regressions.
