@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07110f" />
+  <meta name="description" content="MCPShield by Nullvora is an open-source security scanner, hardening checker and runtime guard for Model Context Protocol (MCP) deployments." />
+  <meta name="keywords" content="MCP security, Model Context Protocol, AI security, agentic AI, MCP scanner, tool poisoning, prompt injection, runtime guard" />
+  <meta property="og:title" content="MCPShield by Nullvora — Security for the Model Context Protocol" />
+  <meta property="og:description" content="Scan MCP configurations, inspect tools, detect rug pulls and enforce runtime policy with an open-source MCP security toolkit." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nullvora.com" />
+  <meta property="og:image" content="https://nullvora.com/assets/hero-bg.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>MCPShield by Nullvora — Security for MCP & Agentic AI</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="launch-strip">
+    <span class="pulse-dot" aria-hidden="true"></span>
+    <strong>MCPShield v1.1.1rc1 is now public.</strong>
+    <a href="https://github.com/Nullvora/MCPShield" target="_blank" rel="noreferrer">Explore the source beta <span aria-hidden="true">→</span></a>
+  </div>
+
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Nullvora home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img"><path d="M24 3 39 9v11c0 10.8-6.2 19.1-15 24C15.2 39.1 9 30.8 9 20V9l15-6Z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="m16 24 5 5 11-12" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span>NULLVORA</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#product">Product</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#how">How it works</a>
+        <a href="#trust">Trust</a>
+        <a href="#docs">Docs</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="text-link" href="https://github.com/Nullvora/MCPShield" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn btn-small btn-primary" href="#install">Try MCPShield</a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="#product">Product</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#how">How it works</a>
+      <a href="#trust">Trust</a>
+      <a href="#docs">Docs</a>
+      <a href="https://github.com/Nullvora/MCPShield" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="container hero-layout">
+        <div class="hero-copy reveal">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Open-source MCP security · Source beta</div>
+          <h1 id="hero-title">Secure the layer between <span>AI agents</span> and real-world tools.</h1>
+          <p class="hero-lede">MCPShield scans Model Context Protocol deployments for dangerous configurations, vulnerable packages and poisoned tools—then adds runtime policy enforcement, tamper-evident auditing and agent observability.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://github.com/Nullvora/MCPShield" target="_blank" rel="noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-secondary" href="#install">Install from source</a>
+          </div>
+          <div class="hero-proof" aria-label="Product summary">
+            <div><strong>60</strong><span>security rules</span></div>
+            <div><strong>10</strong><span>MCP clients covered</span></div>
+            <div><strong>3</strong><span>runtime transports</span></div>
+            <div><strong>0</strong><span>API keys for static scans</span></div>
+          </div>
+        </div>
+
+        <div class="terminal-wrap reveal delay-1" aria-label="Example MCPShield scan output">
+          <div class="terminal-glow"></div>
+          <div class="terminal-card">
+            <div class="terminal-top">
+              <div class="terminal-dots"><i></i><i></i><i></i></div>
+              <span>mcpshield scan --auto</span>
+              <span class="terminal-badge">v1.1.1rc1</span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-line muted">$ mcpshield scan --auto</div>
+              <div class="terminal-line">MCPShield <b>source beta</b> · local security assessment</div>
+              <div class="terminal-separator"></div>
+              <div class="scan-row"><span class="sev critical">CRITICAL</span><span>Known malicious MCP package</span><span>MCPS-SUP-003</span></div>
+              <div class="scan-row"><span class="sev high">HIGH</span><span>Tool description contains hidden instructions</span><span>MCPS-TOOL-001</span></div>
+              <div class="scan-row"><span class="sev high">HIGH</span><span>Private-network destination in tool arguments</span><span>RUNTIME</span></div>
+              <div class="scan-row"><span class="sev medium">MEDIUM</span><span>Package version is not pinned</span><span>SUPPLY CHAIN</span></div>
+              <div class="terminal-separator"></div>
+              <div class="summary-grid">
+                <div><span>Risk</span><strong>99/100</strong></div>
+                <div><span>Grade</span><strong>F</strong></div>
+                <div><span>Servers</span><strong>7</strong></div>
+              </div>
+              <div class="terminal-line success">✓ Static scan complete. No cloud service required.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-bar" aria-label="Supported workflows">
+      <div class="container trust-items">
+        <span>CLAUDE</span><span>CURSOR</span><span>VS CODE</span><span>CODEX</span><span>GEMINI CLI</span><span>CI / SARIF</span><span>OTLP</span>
+      </div>
+    </section>
+
+    <section class="section" id="product">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">Why MCPShield</span>
+          <h2>MCP expands the blast radius of an AI agent. <span>Security has to move with it.</span></h2>
+          <p>Every MCP server can add code, capabilities and model-visible instructions to an agent session. MCPShield gives engineering and security teams a practical way to discover that surface, assess it, lock reviewed definitions and enforce policy at runtime.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-card reveal">
+            <span class="card-number">01</span>
+            <h3>Discover shadow MCP</h3>
+            <p>Inventory configured MCP servers across supported clients and projects, including local and remote targets that may not be centrally tracked.</p>
+          </article>
+          <article class="problem-card reveal delay-1">
+            <span class="card-number">02</span>
+            <h3>Assess trust before execution</h3>
+            <p>Check configs, launchers, packages, permissions, secrets, remote endpoints and tool metadata before an agent depends on them.</p>
+          </article>
+          <article class="problem-card reveal delay-2">
+            <span class="card-number">03</span>
+            <h3>Control runtime behavior</h3>
+            <p>Put a policy guard between client and server to block risky calls, redact secrets, deny sampling and preserve an auditable record.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="capabilities">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">One toolkit · Multiple layers</span>
+          <h2>From configuration review to <span>runtime enforcement.</span></h2>
+        </div>
+        <div class="capability-grid">
+          <article class="cap-card reveal">
+            <div class="cap-icon">⌕</div>
+            <div class="cap-label">STATIC</div>
+            <h3>Config & supply-chain audit</h3>
+            <p>Detect secrets, unsafe shell/download-and-execute patterns, excessive filesystem scope, insecure remotes and vulnerable, malicious or unpinned packages.</p>
+            <ul><li>10 MCP client formats</li><li>JSONC & TOML aware</li><li>Shadow-MCP inventory</li></ul>
+          </article>
+          <article class="cap-card reveal delay-1">
+            <div class="cap-icon">◎</div>
+            <div class="cap-label">LIVE</div>
+            <h3>Tool & server inspection</h3>
+            <p>Inspect live server metadata without calling tools. Analyze descriptions and schemas for poisoning, Unicode hiding, shadowing and exfiltration-oriented parameters.</p>
+            <ul><li>stdio, Streamable HTTP & SSE</li><li>MCP 2026-07-28 + legacy fallback</li><li>Remote security probes</li></ul>
+          </article>
+          <article class="cap-card reveal delay-2">
+            <div class="cap-icon">◇</div>
+            <div class="cap-label">PIN</div>
+            <h3>Rug-pull detection</h3>
+            <p>Record reviewed tool definitions and detect later changes before a protected tool call is allowed.</p>
+            <ul><li>Lock-backed definition verification</li><li>List-change invalidation</li><li>Fail-closed verification</li></ul>
+          </article>
+          <article class="cap-card reveal">
+            <div class="cap-icon">⬡</div>
+            <div class="cap-label">RUNTIME</div>
+            <h3>Policy guard & DLP</h3>
+            <p>Wrap stdio MCP servers with policy enforcement for tools, arguments, sensitive paths, private networks, sampling and result handling.</p>
+            <ul><li>Monitor & enforce modes</li><li>Secret redaction</li><li>Bounded request handling</li></ul>
+          </article>
+          <article class="cap-card reveal delay-1">
+            <div class="cap-icon">⌁</div>
+            <div class="cap-label">OBSERVE</div>
+            <h3>Agent activity traces</h3>
+            <p>Trace MCP sessions and tool calls with OpenTelemetry-compatible spans and security context without requiring a hosted telemetry service.</p>
+            <ul><li>W3C trace context</li><li>Lethal-trifecta session alerts</li><li>Local trace browser</li></ul>
+          </article>
+          <article class="cap-card reveal delay-2">
+            <div class="cap-icon">↗</div>
+            <div class="cap-label">SHIP</div>
+            <h3>Security outputs for teams</h3>
+            <p>Move findings into the workflows teams already use: console, JSON, SARIF, Markdown, HTML and CI fail thresholds.</p>
+            <ul><li>GitHub code scanning</li><li>Pre-commit support</li><li>Baselines & allowlists</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section workflow-section" id="how">
+      <div class="container">
+        <div class="workflow-layout">
+          <div class="workflow-copy reveal">
+            <span class="kicker">How it works</span>
+            <h2>Start safe. Add depth only when you need it.</h2>
+            <p>MCPShield is designed around a progressive workflow. Static discovery and configuration assessment come first. Live inspection and runtime controls are explicit steps—not hidden side effects.</p>
+            <div class="workflow-steps">
+              <div class="workflow-step"><b>1</b><div><h3>Discover</h3><p>Find MCP configurations and build an inventory.</p></div></div>
+              <div class="workflow-step"><b>2</b><div><h3>Assess</h3><p>Score config, package, endpoint and tool risks.</p></div></div>
+              <div class="workflow-step"><b>3</b><div><h3>Pin</h3><p>Lock reviewed tool definitions to detect changes.</p></div></div>
+              <div class="workflow-step"><b>4</b><div><h3>Guard & observe</h3><p>Enforce policy and trace real agent activity.</p></div></div>
+            </div>
+          </div>
+          <div class="architecture-panel reveal delay-1">
+            <div class="arch-heading"><span>Runtime architecture</span><em>defense in depth</em></div>
+            <div class="arch-flow">
+              <div class="arch-node"><small>CLIENT</small><strong>AI Agent</strong><span>Claude · Cursor · VS Code · Codex</span></div>
+              <div class="arch-arrow"><span>JSON-RPC</span>→</div>
+              <div class="arch-node shield-node"><small>NULLVORA</small><strong>MCPShield Guard</strong><span>Policy · DLP · Pin verification · Audit</span></div>
+              <div class="arch-arrow"><span>validated</span>→</div>
+              <div class="arch-node"><small>SERVER</small><strong>MCP Tools</strong><span>Files · APIs · DB · Browser · Shell</span></div>
+            </div>
+            <div class="arch-note"><span class="green-dot"></span><p>Monitor mode can observe without mutating proxied output. Enforce mode adds configured controls.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section image-feature">
+      <div class="container image-feature-grid">
+        <div class="image-frame reveal"><img src="assets/hero-bg.jpg" alt="Abstract visualization representing security monitoring and agent observability" loading="lazy" /></div>
+        <div class="image-feature-copy reveal delay-1">
+          <span class="kicker">Built for real security workflows</span>
+          <h2>Use MCPShield locally, in CI, or around the runtime.</h2>
+          <p>Keep static analysis local, export SARIF into code scanning, send traces to your own OTLP backend, or wrap selected stdio servers with policy enforcement. You choose the operating model.</p>
+          <div class="mini-grid">
+            <div><strong>Local-first</strong><span>No API key required for static scans.</span></div>
+            <div><strong>CI-ready</strong><span>GitHub Action, pre-commit and fail thresholds.</span></div>
+            <div><strong>Vendor-neutral</strong><span>OTLP export to the backend you already use.</span></div>
+            <div><strong>Open source</strong><span>Apache-2.0 licensed and publicly reviewable.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section install-section" id="install">
+      <div class="container install-grid">
+        <div class="install-copy reveal">
+          <span class="kicker">Public source beta · v1.1.1rc1</span>
+          <h2>Run your first MCP security scan in minutes.</h2>
+          <p>Install the current release candidate directly from the public repository. Package and container registry publishing remain intentionally disabled while we collect external feedback.</p>
+          <div class="callouts">
+            <div><span>✓</span> Python 3.10+</div>
+            <div><span>✓</span> No API key for static scans</div>
+            <div><span>✓</span> Linux · macOS · Windows</div>
+          </div>
+        </div>
+        <div class="code-card reveal delay-1">
+          <div class="code-head"><span>Quick start</span><button class="copy-btn" type="button" data-copy="#quickstart">Copy</button></div>
+          <pre id="quickstart"><code>git clone https://github.com/Nullvora/MCPShield.git
+cd MCPShield
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install .
+mcpshield --version
+mcpshield scan --auto</code></pre>
+          <div class="code-foot">Windows PowerShell: <code>.venv\\Scripts\\Activate.ps1</code></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section trust-section" id="trust">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">Trust through clarity</span>
+          <h2>Strong controls without <span>false certainty.</span></h2>
+          <p>MCPShield is security tooling, not a magic boundary. The project documents what it can detect, where it can enforce policy and where platform isolation is still required.</p>
+        </div>
+        <div class="trust-grid">
+          <article class="trust-card reveal"><h3>Fail-closed hardening</h3><p>Malformed protocol messages, invalid policy and incomplete pin verification are treated as security conditions rather than silently accepted.</p></article>
+          <article class="trust-card reveal delay-1"><h3>Privacy-aware by default</h3><p>Argument capture for audit and OTLP is opt-in, audit keys are isolated from child processes and static scans do not require a hosted service.</p></article>
+          <article class="trust-card reveal delay-2"><h3>Known limitations are public</h3><p>The runtime guard is defense in depth—not an OS sandbox. Hostile servers still belong behind container, process and network controls.</p></article>
+        </div>
+        <div class="beta-panel reveal">
+          <div>
+            <span class="beta-badge">SOURCE BETA</span>
+            <h3>We want adversarial feedback.</h3>
+            <p>Try MCPShield on real MCP configurations. Report installation friction, false positives, false negatives, missing attack patterns and whether the findings changed how you trust or configure a server.</p>
+          </div>
+          <div class="beta-actions">
+            <a class="btn btn-primary" href="https://github.com/Nullvora/MCPShield/issues" target="_blank" rel="noreferrer">Open an issue</a>
+            <a class="btn btn-secondary" href="https://github.com/Nullvora/MCPShield/security" target="_blank" rel="noreferrer">Security reporting</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section docs-section" id="docs">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">Documentation</span>
+          <h2>Read the design, rules and <span>release boundaries.</span></h2>
+        </div>
+        <div class="docs-grid">
+          <a class="doc-card reveal" href="https://github.com/Nullvora/MCPShield/blob/main/docs/RULES.md" target="_blank" rel="noreferrer"><span>01</span><h3>Rule catalogue</h3><p>Security checks, severity and framework mappings.</p><b>Open docs →</b></a>
+          <a class="doc-card reveal delay-1" href="https://github.com/Nullvora/MCPShield/blob/main/docs/LIMITATIONS.md" target="_blank" rel="noreferrer"><span>02</span><h3>Known limitations</h3><p>Boundaries, assumptions and operational caveats.</p><b>Open docs →</b></a>
+          <a class="doc-card reveal delay-2" href="https://github.com/Nullvora/MCPShield/blob/main/docs/OBSERVABILITY.md" target="_blank" rel="noreferrer"><span>03</span><h3>Observability</h3><p>Agent tracing, OTLP and security events.</p><b>Open docs →</b></a>
+          <a class="doc-card reveal" href="https://github.com/Nullvora/MCPShield/blob/main/docs/RELEASE_NOTES_1.1.1rc1.md" target="_blank" rel="noreferrer"><span>04</span><h3>Release notes</h3><p>What changed in the source-beta release candidate.</p><b>Open docs →</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container final-cta-inner reveal">
+        <div>
+          <span class="kicker">Nullvora · Securing agentic AI</span>
+          <h2>Know what your agents can reach. Know what their tools can do.</h2>
+        </div>
+        <a class="btn btn-primary btn-large" href="https://github.com/Nullvora/MCPShield" target="_blank" rel="noreferrer">Explore MCPShield on GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 3 39 9v11c0 10.8-6.2 19.1-15 24C15.2 39.1 9 30.8 9 20V9l15-6Z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="m16 24 5 5 11-12" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>NULLVORA</span></a>
+        <p>Open security tooling for MCP and agentic AI systems.</p>
+      </div>
+      <div><h4>Product</h4><a href="#capabilities">Capabilities</a><a href="#install">Quick start</a><a href="#trust">Security model</a></div>
+      <div><h4>Project</h4><a href="https://github.com/Nullvora/MCPShield" target="_blank" rel="noreferrer">GitHub</a><a href="https://github.com/Nullvora/MCPShield/issues" target="_blank" rel="noreferrer">Issues</a><a href="https://github.com/Nullvora/MCPShield/discussions" target="_blank" rel="noreferrer">Discussions</a></div>
+      <div><h4>Nullvora</h4><a href="https://nullvora.com">Home</a><a href="mailto:security@nullvora.com">Security contact</a></div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Nullvora. MCPShield is licensed under Apache-2.0.</span>
+      <span>Source beta · v1.1.1rc1</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
