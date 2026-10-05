@@ -1,0 +1,40 @@
+name: Product feedback
+description: Tell us what worked, what blocked you, and what you need next.
+title: "[Feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: "Remove credentials, customer data and private URLs. Report security vulnerabilities privately using SECURITY.md."
+  - type: input
+    id: environment
+    attributes:
+      label: Version, operating system and MCP client
+      placeholder: "1.1.1rc1 / Ubuntu / client name"
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: What were you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: experience
+    attributes:
+      label: What worked and what blocked you?
+      description: "Include time to first useful result and sanitized reproduction steps."
+    validations:
+      required: true
+  - type: textarea
+    id: next
+    attributes:
+      label: What one change would make you use this again?
+  - type: dropdown
+    id: reuse
+    attributes:
+      label: Would you use it again?
+      options:
+        - "Yes"
+        - "With changes"
+        - "No"
+

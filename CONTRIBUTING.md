@@ -1,39 +1,56 @@
 # Contributing to MCPShield
 
-Thank you for your interest in contributing. MCPShield is an open-source security project and we welcome contributions from the community.
+Thanks for helping secure the MCP ecosystem! Detection rules, advisory data, false-positive reports and docs are
+all valuable contributions.
 
-## Getting Started
-
-```bash
-git clone https://github.com/Nullvora/MCPShield.git
-cd MCPShield
-pip install -e ".[dev]"
-```
-
-## Running Tests
+## Development setup
 
 ```bash
-pytest tests/ -v
-pytest tests/ -v --cov=mcpshield --cov-report=html
+git clone https://github.com/Nullvora/MCPShield && cd MCPShield
+python -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"          # includes the official `mcp` SDK used by the live test servers
+pytest                           # ~130 tests; live tests start local fixture servers
+ruff check mcpshield tests && mypy mcpshield
 ```
 
-## Areas Seeking Contributions
+## Project layout
 
-- Additional scanner detection modules
-- LangChain, LangGraph, CrewAI, AutoGen framework integrations
-- New attack scenario documentation
-- Live server scanning (HTTP/SSE mode — v0.2 target)
-- Additional policy rule templates
-- Translations of hardening guides
+```
+mcpshield/
+  config/         client config discovery + parsing (Claude, Cursor, VS Code, Windsurf, Gemini, Codex, Zed …)
+  checks/         detection logic
+    registry.py     ← every rule (ID, severity, OWASP/CWE mapping, remediation)
+    config_checks.py  static config rules        text.py  injection / hidden-char / secret primitives
+    tool_checks.py    live tool/prompt rules      packages.py  package extraction + advisory matching
+  live/           dual-era MCP client (2026-07-28 stateless + legacy initialize) and HTTP probes
+  proxy/          runtime guard (stdio proxy) and policy engine
+  pinning.py      tool-definition lock files (rug-pull detection)
+  auditlog.py     hash-chained, HMAC-signed audit log
+  reporting/      console, JSON, SARIF, HTML, Markdown
+  data/           advisories.json, known_packages.json
+tests/fixtures/servers/  poisoned, clean and 2026-07-28 fixture MCP servers
+```
 
-## Submission Guidelines
+## Adding a rule
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Write tests for new functionality
-4. Ensure all tests pass: `pytest tests/ -v`
-5. Submit a Pull Request with a clear description
+1. Define it in `mcpshield/checks/registry.py` (unique `MCPS-<AREA>-NNN` ID, default severity, OWASP MCP / ASI / CWE
+   mapping, remediation, primary-source references).
+2. Emit it with `make("MCPS-…", …)` from the relevant check module.
+3. Add a positive **and** a negative test. For live rules, extend a fixture server.
+4. Regenerate the catalogue: `mcpshield rules --markdown > docs/RULES.md`.
 
-## Responsible Disclosure
+Keep false positives low: before merging a tool-metadata heuristic, run it against real servers
+(`mcpshield scan <config> --live`) — see "Benchmark" in `docs/ARCHITECTURE.md`.
 
-To report a security vulnerability in MCPShield itself, email: security@nullvora.com
+## Adding an advisory
+
+Edit `mcpshield/data/advisories.json`. Every entry needs the exact package name, ecosystem, affected range
+(PEP 440 specifier), fixed version (if any), severity and a **primary source URL** (GHSA, OSV, NVD or the vendor).
+Unverified or AI-generated CVE data will not be merged.
+
+## Pull requests
+
+- One logical change per PR; update `CHANGELOG.md`.
+- Never commit real secrets — test fixtures use obviously fake values.
+- Contributions are accepted under the Apache License 2.0 ("inbound = outbound"). Sign off every commit
+  (`git commit -s`) to certify the [Developer Certificate of Origin](https://developercertificate.org/). No CLA is required.

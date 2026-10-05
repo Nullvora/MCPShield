@@ -1,0 +1,7 @@
+- id: mcpshield
+  name: MCPShield (MCP config security scan)
+  description: Scan MCP client configuration files for secrets, unsafe launch commands and vulnerable packages.
+  entry: mcpshield scan --fail-on high --min-severity medium
+  language: python
+  files: (^|/)(\.mcp\.json|mcp\.json|mcp_config\.json|claude_desktop_config\.json|\.cursor/mcp\.json|\.vscode/mcp\.json|\.claude/settings(\.local)?\.json|\.gemini/settings\.json)$
+  pass_filenames: true

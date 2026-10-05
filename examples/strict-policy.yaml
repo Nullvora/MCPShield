@@ -1,0 +1,27 @@
+# Strict runtime policy for high-risk servers (browsers, shells, e-mail).
+#   mcpshield proxy --policy examples/strict-policy.yaml -- npx -y @playwright/mcp@0.0.41
+mode: enforce
+block_severity: medium          # hide any tool whose definition has a medium+ finding
+
+tools:
+  deny: ["*exec*", "*shell*", "run_*", "delete_*", "browser_file_upload"]
+  require_pinned: true          # with --lock: only reviewed, unchanged tools are exposed
+
+arguments:
+  deny_paths: ["~/Documents/**", "~/Downloads/**"]
+  deny_hosts: ["pastebin.com", "transfer.sh", "webhook.site", "requestbin.net", "ngrok.io"]
+  deny_private_networks: true
+  deny_patterns: ["(?i)api[_-]?key", "(?i)password="]
+  max_bytes: 50000
+
+results:
+  redact_secrets: true
+  block_injection: true
+
+rate_limits:
+  default_per_minute: 30
+  per_tool:
+    send_email: 3
+    browser_navigate: 20
+
+sampling: deny

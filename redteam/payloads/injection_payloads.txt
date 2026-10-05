@@ -1,5 +1,5 @@
 # MCPShield — Prompt Injection Test Payloads
-# For authorised security testing only. Use with mcpshield scanner injection module.
+# For authorised security testing only. Used to exercise MCPShield's tool-poisoning detectors (mcpshield/checks/text.py).
 # Format: one payload per line, preceded by category comment.
 
 # --- Role Override ---
