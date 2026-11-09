@@ -219,6 +219,21 @@ Every finding also carries OWASP Agentic Top 10 (ASI01–ASI10) and CWE referenc
 - MCP registry / server-card reputation checks
 - VS Code extension and a hosted dashboard for fleet-wide results (Nullvora commercial edition)
 
+## Sponsor MCPShield
+
+MCPShield is maintained as open-source security infrastructure for the Model Context Protocol and agentic AI ecosystem. Sponsorships help fund security research, new detection rules, adversarial testing, compatibility work, documentation and long-term maintenance.
+
+If MCPShield is useful to your team, you can support continued development through [GitHub Sponsors](https://github.com/sponsors/jkboamah).
+
+Suggested support levels:
+
+- **Supporter — $5/month:** help sustain ongoing open-source maintenance.
+- **Security Backer — $15/month:** support new MCP security rules, test coverage and compatibility work.
+- **Project Sponsor — $50/month:** help fund deeper research, adversarial testing and documentation.
+- **Strategic Sponsor — $100+/month:** support sustained engineering across runtime policy, observability and ecosystem integrations.
+
+One-time sponsorships are also welcome. Sponsorship does not influence security findings, severity decisions or the project's technical independence.
+
 ## Contributing & security
 
 Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Please report vulnerabilities privately as described
